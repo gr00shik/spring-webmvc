@@ -1,5 +1,6 @@
 package uz.avotech.config;
 
+import org.hibernate.SessionFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -12,16 +13,37 @@ import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import uz.avotech.domain.PersonEntity;
+import uz.avotech.domain.PhoneEntity;
 
 import javax.sql.DataSource;
 import java.sql.DriverManager;
 import java.util.Locale;
+import java.util.Properties;
 
 import static java.util.Locale.US;
 
 @Configuration
 @ComponentScan(basePackages = "uz.avotech")
 public class AppConfig {
+
+    @Bean
+    public SessionFactory sessionFactory() {
+
+        org.hibernate.cfg.Configuration configuration = new org.hibernate.cfg.Configuration();
+        Properties properties = new Properties();
+        properties.put("hibernate.connection.url", "jdbc:postgresql://localhost:5432/hibernate");
+        properties.put("hibernate.connection.username", "postgres");
+        properties.put("hibernate.connection.password", "postgres");
+        properties.put("hibernate.connection.driver_class", "org.postgresql.Driver");
+        properties.put("hibernate.show_sql", true);
+        properties.put("hibernate.hbm2ddl.auto", "update");
+        configuration.addProperties(properties);
+        configuration.addAnnotatedClass(PersonEntity.class);
+        configuration.addAnnotatedClass(PhoneEntity.class);
+
+        return configuration.buildSessionFactory();
+    }
 
     @Bean
     public ViewResolver viewResolver() {
