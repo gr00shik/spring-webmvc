@@ -12,8 +12,8 @@ import uz.avotech.service.HomeService;
 
 import java.util.List;
 
-@Controller
-@RequestMapping(value = "/user")
+//@Controller
+//@RequestMapping(value = "/user")
 @RequiredArgsConstructor
 public class UserController {
 

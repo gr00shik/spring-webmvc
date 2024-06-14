@@ -18,8 +18,8 @@ import uz.avotech.domain.User;
 import uz.avotech.service.HomeService;
 import uz.avotech.service.UserValidator;
 
-@Controller
-@RequestMapping(value = "/app")
+//@Controller
+//@RequestMapping(value = "/app")
 @RequiredArgsConstructor
 public class HomeController {
 
